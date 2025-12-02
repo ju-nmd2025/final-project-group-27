@@ -1,7 +1,7 @@
 let img;
 
 function preload() {
-    img = loadImage('/assets/player.jpg')
+    img = loadImage('player.png')
 }
 
 export default class player {
