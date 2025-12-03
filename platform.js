@@ -6,11 +6,24 @@ export default class platform {
     this.w = w;
     this.h = h;
   }
-
   draw() {
-    push();
-    fill("blue");
-    rect(this.x, this.y, this.w, this.h);
-    pop();
+    if (this.type == "Normal") {
+      push();
+      fill("blue");
+      rect(this.x, this.y, this.w, this.h);
+      pop();
+    }
+    if (this.type == "Moving") {
+      push();
+      fill("orange");
+      rect(this.x, this.y, this.w, this.h);
+      pop();
+    }
+    if (this.type == "Breaking") {
+      push();
+      fill("purple");
+      rect(this.x, this.y, this.w, this.h);
+      pop();
+    }
   }
 }
