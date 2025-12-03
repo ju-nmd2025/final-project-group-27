@@ -14,6 +14,19 @@ export default class player {
         image(img,this.x,this.y,this.w,this.h);
     }
     isColliding(player, platform) {
-// if (platform.y === character.y + character.w && platform.x <= character.x + character.w && platform.x + platform.w > character.x)
-}
-}
+        if (platform.y === player.y + player.w && platform.x <= player.x + player.w && platform.x + platform.w > player.x){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    isFalling(player) {
+        if (this.isColliding == false && player.x > 400){
+            return true;
+        }
+        else {
+            return false;
+        }
+        }
+    }
