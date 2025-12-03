@@ -11,7 +11,7 @@ export default class player {
         this.h = h;
     }
     draw() {
-        image(img,this.w,this.h);
+        image(img,this.x,this.y,this.w,this.h);
     }
     isColliding(player, platform) {
 // if (platform.y === character.y + character.w && platform.x <= character.x + character.w && platform.x + platform.w > character.x)
