@@ -18,5 +18,9 @@ function draw() {
   line(0,floor,canvasWidth,floor);
 }
 let l = false;
-//while (l == true)
+while (l == true) {
+    if (character.isFalling == false) {
+        character.x += 10;
+    }
+}
 const platformtypes = ["Normal", "Moving", "Breaking"];
