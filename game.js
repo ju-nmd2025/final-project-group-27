@@ -13,7 +13,16 @@ let canvasWidth = 300;
 let canvasHeight = 400;
 let character = new player(canvasWidth * 0.5, canvasHeight * 0.87, 50, 50);
 let floor = 400;
-let platforms = [new platform("Breaking", canvasWidth * 0.5, canvasHeight * 0.6, 50, 10)];
+
+// Create platforms with alternating types at random x positions
+const platformTypes = ["Normal", "Moving", "Breaking"];
+let platforms = [];
+for (let i = 0; i < 8; i++) {
+  const type = platformTypes[i % 3];
+  const randomX = Math.random() * (canvasWidth - 50);
+  const y = canvasHeight - i * 60 - 100;
+  platforms.push(new platform(type, randomX, y, 50, 10));
+}
 
 function draw() {
   background(170, 170, 255);

@@ -1,5 +1,5 @@
 export default class platform {
-  constructor(type,x, y, w, h) {
+  constructor(type, x, y, w, h) {
     this.type = type;
     this.x = x;
     this.y = y;
