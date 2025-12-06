@@ -14,18 +14,31 @@ export default class player {
         image(img,this.x,this.y,this.w,this.h);
     }
     isColliding(player, platform) {
-        if (platform.y === player.y + player.w && platform.x <= player.x + player.w && platform.x + platform.w > player.x){
+        if (
+            (player.x + player.w <= platform.x + platform.w && 
+            player.x >= platform.x) && 
+            (player.y + player.h <= platform.y + platform.h &&
+            player.y >= platform.y)
+            ){
+            console.log("collide true");
+            console.log(player.x, platform.x);
+            console.log(player.y, platform.y);
             return true;
         }
         else {
+            console.log("player x:", player.x, "platform x:", platform.x);
+            console.log("y", player.y, platform.y);
+            console.log("collide false");
             return false;
         }
     }
     isFalling(player) {
-        if (this.isColliding == false && player.x > 400){
+        if (this.isColliding && player.y > 400){
+            console.log("fall true");
             return true;
         }
         else {
+            console.log("fall false");
             return false;
         }
         }
