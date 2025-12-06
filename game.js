@@ -19,7 +19,7 @@ const platformTypes = ["Normal", "Moving", "Breaking"];
 let platforms = [];
 for (let i = 0; i < 8; i++) {
   const type = platformTypes[i % 3];
-  const randomX = Math.random() * (canvasWidth - 50);
+  const randomX = Math.floor(Math.random() * (canvasWidth - 50))  ;
   const y = canvasHeight - i * 60 - 100;
   platforms.push(new platform(type, randomX, y, 50, 10));
 }
@@ -44,10 +44,14 @@ function keyPressed() {
     //character.isFalling();
     platforms[0].y += 20;
     floor += 1;
-//    for (let i = 0; i < 15; i++) {
-  //    console.log("fall");
-    //  platforms.y -= 2;
-  //}
+  if (key === 'a') {
+    character.x -= 5;
+  }
+  }
+}
+if(keyIsPressed){
+  if (key === 'd') {
+    character.x += 5;
   }
 }
 

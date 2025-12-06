@@ -26,8 +26,10 @@ export default class player {
             return true;
         }
         else {
-            console.log("player x:", player.x, "platform x:", platform.x);
-            console.log("y", player.y, platform.y);
+            console.log(platform.x);
+            console.log(player.x);
+            console.log(platform.y);
+            console.log(player.y);
             console.log("collide false");
             return false;
         }
