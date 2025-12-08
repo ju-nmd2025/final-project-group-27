@@ -14,13 +14,15 @@ let canvasWidth = 300;
 let canvasHeight = 400;
 let character = new player(canvasWidth * 0.5, canvasHeight * 0.87, 50, 50);
 let floor = 400;
+//to track the first jump so the player position can move
+let hasJumped = false;
 
 // Create platforms with alternating types at random x positions
 const platformTypes = ["Normal", "Moving", "Breaking"];
 let platforms = [];
 for (let i = 0; i < 80; i++) {
   const type = platformTypes[i % 3];
-  const randomX = Math.floor(Math.random() * (canvasWidth - 50))  ;
+  const randomX = Math.floor(Math.random() * (canvasWidth - 50));
   const y = canvasHeight - i * 60 - 100;
   platforms.push(new platform(type, randomX, y, 50, 10));
 }
@@ -39,22 +41,26 @@ function draw() {
   }
 }
 //console.log(platforms);
-//character.isColliding(character,platforms[0]); 
+//character.isColliding(character,platforms[0]);
 function keyPressed() {
-if (!character.isColliding(character,platforms)){
-  for (let i in platforms){
+  if (!character.isColliding(character, platforms)) {
+    //makes player move 25 units on only the first jump
+    if (!hasJumped) {
+      character.y -= 25;
+      hasJumped = true;
+    }
+    for (let i in platforms) {
       //character.isFalling();
       platforms[i].y += 20;
       floor += 1;
-      }
+    }
   }
-if (key === 'a') {
+  if (key === "a") {
     character.x -= 10;
   }
-if (key === 'd') {
+  if (key === "d") {
     character.x += 10;
   }
 }
 const platformtypes = ["Normal", "Moving", "Breaking"];
 //jumping
-
