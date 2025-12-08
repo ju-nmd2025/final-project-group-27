@@ -13,19 +13,19 @@ export default class player {
     draw() {
         image(img,this.x,this.y,this.w,this.h);
     }
-    isColliding(player, platform) {
-        if (
-            (player.x + player.w <= platform.x + platform.w && 
-            player.x >= platform.x) && 
-            (player.y + player.h <= platform.y + platform.h &&
-            player.y >= platform.y)
-            ){
-            console.log("collide true");
-            console.log(player.x, platform.x);
-            console.log(player.y, platform.y);
-            return true;
-        }
-        else {
+    isColliding(player, platforms) {
+        for (const platform of platforms) {
+            if (
+                player.x + player.w <= platform.x + platform.w && 
+                player.x >= platform.x || 
+                player.y + player.h <= platform.y + platform.h &&
+                player.y >= platform.y
+                ){
+                console.log("collide true");
+                console.log(player.x, platform.x);
+                console.log(player.y, platform.y);
+                return true;
+            }
             console.log(platform.x);
             console.log(player.x);
             console.log(platform.y);

@@ -1,6 +1,7 @@
 import { Platform } from "platform";
 import { Player } from "player";
 import player from "./player";
+import platform from "./platform";
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -39,22 +40,22 @@ function draw() {
 }
 character.isColliding(character,platforms[0]);
 function keyPressed() {
-  if (character.isFalling){
-    character.isColliding(character,platforms[0]);
-    //character.isFalling();
-    platforms[0].y += 20;
-    floor += 1;
-  if (key === 'a') {
+  for (const platform of platforms){
+    if (!character.isColliding(character,platform)){
+      character.isColliding(character,platform);
+      //character.isFalling();
+        platform.y += 20;
+      }
+      floor += 1;
+    
+  }
+if (key === 'a') {
     character.x -= 5;
   }
-  }
-}
-if(keyIsPressed){
-  if (key === 'd') {
+if (key === 'd') {
     character.x += 5;
   }
 }
-
 const platformtypes = ["Normal", "Moving", "Breaking"];
 //jumping
 
