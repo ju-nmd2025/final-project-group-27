@@ -20,6 +20,7 @@ let isJumping = false;
 let jumpVelocity = 0;
 const jumpPower = 15;
 const gravity = 0.6;
+let keysPressed = {};
 
 //Create platforms with alternating types at random x positions
 const platformTypes = ["Normal", "Moving", "Breaking"];
@@ -44,6 +45,14 @@ function draw() {
     platforms[i].draw();
   }
 
+  //smooth left and right movement
+  if (keysPressed.a) {
+    character.x -= 3;
+  }
+  if (keysPressed.d) {
+    character.x += 3;
+  }
+
   //Handle jumping
   if (isJumping) {
     jumpVelocity += gravity;
@@ -57,31 +66,32 @@ function draw() {
       jumpVelocity = 0;
     }
   }
+
+  //Auto jump
+  if (!isJumping) {
+    if (!character.isColliding(character, platforms)) {
+      //makes player move 25 units on only the first jump
+      if (!hasJumped) {
+        character.y -= 25;
+        hasJumped = true;
+      }
+      isJumping = true;
+      jumpVelocity = -jumpPower;
+    } else if (character.isColliding(character, platforms)) {
+      //Start jump when landing on platform
+      isJumping = true;
+      jumpVelocity = -jumpPower;
+    }
+  }
 }
 //console.log(platforms);
 //character.isColliding(character,platforms[0]);
 function keyPressed() {
-  if (!character.isColliding(character, platforms)) {
-    //makes player move 25 units on only the first jump
-    if (!hasJumped) {
-      character.y -= 25;
-      hasJumped = true;
-    }
-    if (!isJumping) {
-      isJumping = true;
-      jumpVelocity = -jumpPower;
-    }
-  } else if (!isJumping) {
-    //Start jump when landing on platform
-    isJumping = true;
-    jumpVelocity = -jumpPower;
-  }
-  if (key === "a") {
-    character.x -= 10;
-  }
-  if (key === "d") {
-    character.x += 10;
-  }
+  keysPressed[key] = true;
+}
+
+function keyReleased() {
+  keysPressed[key] = false;
 }
 const platformtypes = ["Normal", "Moving", "Breaking"];
 //jumping
