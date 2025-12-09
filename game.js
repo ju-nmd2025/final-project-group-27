@@ -16,8 +16,12 @@ let character = new player(canvasWidth * 0.5, canvasHeight * 0.87, 50, 50);
 let floor = 400;
 //to track the first jump so the player position can move
 let hasJumped = false;
+let isJumping = false;
+let jumpVelocity = 0;
+const jumpPower = 15;
+const gravity = 0.6;
 
-// Create platforms with alternating types at random x positions
+//Create platforms with alternating types at random x positions
 const platformTypes = ["Normal", "Moving", "Breaking"];
 let platforms = [];
 for (let i = 0; i < 80; i++) {
@@ -39,6 +43,20 @@ function draw() {
   for (let i in platforms) {
     platforms[i].draw();
   }
+
+  //Handle jumping
+  if (isJumping) {
+    jumpVelocity += gravity;
+    for (let i in platforms) {
+      platforms[i].y -= jumpVelocity;
+    }
+
+    //Checks if player came from above the platform
+    if (character.isLandingOnTop(character, platforms, jumpVelocity)) {
+      isJumping = false;
+      jumpVelocity = 0;
+    }
+  }
 }
 //console.log(platforms);
 //character.isColliding(character,platforms[0]);
@@ -49,11 +67,14 @@ function keyPressed() {
       character.y -= 25;
       hasJumped = true;
     }
-    for (let i in platforms) {
-      //character.isFalling();
-      platforms[i].y += 20;
-      floor += 1;
+    if (!isJumping) {
+      isJumping = true;
+      jumpVelocity = -jumpPower;
     }
+  } else if (!isJumping) {
+    //Start jump when landing on platform
+    isJumping = true;
+    jumpVelocity = -jumpPower;
   }
   if (key === "a") {
     character.x -= 10;

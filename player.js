@@ -38,6 +38,30 @@ export default class player {
     console.log("collide false");
     return false;
   }
+  //Specifically for when the player lands on top of a platform
+  isLandingOnTop(player, platforms, jumpVelocity) {
+    for (const platform of platforms) {
+      const playerL = player.x;
+      const playerR = player.x + player.w;
+      const platformL = platform.x;
+      const platformR = platform.x + platform.w;
+      const playerT = player.y;
+      const playerB = player.y + player.h;
+      const platformT = platform.y;
+
+      //Check horizontal overlap
+      const horizontalOverlap = playerR >= platformL && playerL <= platformR;
+      //Check if player bottom is near platform top
+      const verticalOverlap = playerB >= platformT && playerB <= platformT + 15;
+      //Check if player is moving downward (falling)
+      const movingDownward = jumpVelocity > 0;
+
+      if (horizontalOverlap && verticalOverlap && movingDownward) {
+        return true;
+      }
+    }
+    return false;
+  }
   isFalling(player) {
     if (this.isColliding && player.y > 400) {
       console.log("fall true");
