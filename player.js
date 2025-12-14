@@ -29,13 +29,13 @@ export default class player {
         ((playerT >= platformT && playerT <= platformB) ||
           (playerB <= platformB && playerB >= platformT))
       ) {
-        console.log("collide true");
-        console.log(player.x, platform.x);
-        console.log(player.y, platform.y);
+        if (platform.type == "Breaking"){
+          console.log(platform.type);
+          platforms.splice(platforms.indexOf(platform), 1);
+        }
         return true;
       }
     }
-    console.log("collide false");
     return false;
   }
   //Specifically for when the player lands on top of a platform

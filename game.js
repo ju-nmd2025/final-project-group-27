@@ -3,8 +3,10 @@ import { Player } from "player";
 import player from "./player";
 import platform from "./platform";
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
+function getRandomIntInclusive(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); 
 }
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
@@ -39,12 +41,11 @@ function draw() {
   push();
   stroke("magenta");
   strokeWeight(4);
-  line(0, floor, floor, canvasHeight);
+  line(0, floor, canvasWidth, floor);
   pop();
   for (let i in platforms) {
     platforms[i].draw();
   }
-
   //smooth left and right movement
   if (keysPressed.a) {
     character.x -= 3;
@@ -58,15 +59,21 @@ function draw() {
     jumpVelocity += gravity;
     for (let i in platforms) {
       platforms[i].y -= jumpVelocity;
+      if (platforms[i].type == "Moving"){
+        var randomL = getRandomIntInclusive(-1, 1);
+        var randomR = getRandomIntInclusive(-12, 12);
+        for (let z = 0; z < 1; z++) {
+          platforms[i].x += randomL;
+        }
+      }
     }
-
+    floor -= jumpVelocity;
     //Checks if player came from above the platform
     if (character.isLandingOnTop(character, platforms, jumpVelocity)) {
       isJumping = false;
       jumpVelocity = 0;
     }
   }
-
   //Auto jump
   if (!isJumping) {
     if (!character.isColliding(character, platforms)) {
@@ -78,14 +85,20 @@ function draw() {
       isJumping = true;
       jumpVelocity = -jumpPower;
     } else if (character.isColliding(character, platforms)) {
-      //Start jump when landing on platform
-      isJumping = true;
-      jumpVelocity = -jumpPower;
+        //Start jump when landing on platform
+        isJumping = true;
+        jumpVelocity = -jumpPower;
     }
   }
+  if (floor < character.y){
+  console.log("dead");
+
 }
+}
+
+
 //console.log(platforms);
-//character.isColliding(character,platforms[0]);
+//character.isColaliding(character,platforms[0]);
 function keyPressed() {
   keysPressed[key] = true;
 }
