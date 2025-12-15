@@ -33,7 +33,7 @@ let platforms = [];
 for (let i = 0; i < 80; i++) {
   const type = platformTypes[i % 3];
   const randomX = Math.floor(Math.random() * (canvasWidth - 50));
-  const y = canvasHeight - i * 60 - 100;
+  const y = canvasHeight - i * 80 - 100;
   platforms.push(new platform(type, randomX, y, 50, 10));
 }
 
@@ -146,7 +146,7 @@ function draw() {
   }
 
   // win condition
-  if (score >= 5000) {
+  if (score >= 6500) {
     gameState = "win";
   }
 }
@@ -194,7 +194,7 @@ function resetGame() {
   for (let i = 0; i < 80; i++) {
     const type = platformTypes[i % 3];
     const randomX = Math.floor(Math.random() * (canvasWidth - 50));
-    const y = canvasHeight - i * 60 - 100;
+    const y = canvasHeight - i * 80 - 100;
     platforms.push(new platform(type, randomX, y, 50, 10));
   }
 }
