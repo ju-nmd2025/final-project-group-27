@@ -3,11 +3,7 @@ import { Player } from "player";
 import player from "./player";
 import platform from "./platform";
 
-function getRandomIntInclusive(min, max) {
-  const minCeiled = Math.ceil(min);
-  const maxFloored = Math.floor(max);
-  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
-}
+
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
 }
@@ -97,16 +93,8 @@ function draw() {
   if (isJumping) {
     jumpVelocity += gravity;
     for (let i in platforms) {
-      platforms[i].y -= jumpVelocity;
-      if (platforms[i].type == "Moving") {
-        var randomL = getRandomIntInclusive(-1, 1);
-        var randomR = getRandomIntInclusive(-12, 12);
-        for (let z = 0; z < 1; z++) {
-          platforms[i].x += randomL;
-        }
-      }
+      platforms[i].y -= jumpVelocity; 
     }
-
     //Increase score while moving up and decrease while moving down
     if (jumpVelocity < 0) {
       score += -jumpVelocity;
