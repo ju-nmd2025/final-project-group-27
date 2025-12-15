@@ -6,7 +6,7 @@ import platform from "./platform";
 function getRandomIntInclusive(min, max) {
   const minCeiled = Math.ceil(min);
   const maxFloored = Math.floor(max);
-  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled); 
+  return Math.floor(Math.random() * (maxFloored - minCeiled + 1) + minCeiled);
 }
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
@@ -23,6 +23,7 @@ let jumpVelocity = 0;
 const jumpPower = 15;
 const gravity = 0.6;
 let keysPressed = {};
+let score = 0;
 
 //Create platforms with alternating types at random x positions
 const platformTypes = ["Normal", "Moving", "Breaking"];
@@ -54,12 +55,19 @@ function draw() {
     character.x += 3;
   }
 
+  //Draw the score on the top left
+  push();
+  fill(0);
+  textSize(16);
+  text("Score: " + Math.floor(score), 10, 20);
+  pop();
+
   //Handle jumping
   if (isJumping) {
     jumpVelocity += gravity;
     for (let i in platforms) {
       platforms[i].y -= jumpVelocity;
-      if (platforms[i].type == "Moving"){
+      if (platforms[i].type == "Moving") {
         var randomL = getRandomIntInclusive(-1, 1);
         var randomR = getRandomIntInclusive(-12, 12);
         for (let z = 0; z < 1; z++) {
@@ -67,6 +75,14 @@ function draw() {
         }
       }
     }
+
+    //Increase score while moving up and decrease while moving down
+    if (jumpVelocity < 0) {
+      score += -jumpVelocity;
+    } else if (jumpVelocity > 0) {
+      score -= jumpVelocity;
+    }
+    if (score < 0) score = 0;
     floor -= jumpVelocity;
     //Checks if player came from above the platform
     if (character.isLandingOnTop(character, platforms, jumpVelocity)) {
@@ -81,21 +97,21 @@ function draw() {
       if (!hasJumped) {
         character.y -= 25;
         hasJumped = true;
+        // award score for the first jump
+        score += 25;
       }
       isJumping = true;
       jumpVelocity = -jumpPower;
     } else if (character.isColliding(character, platforms)) {
-        //Start jump when landing on platform
-        isJumping = true;
-        jumpVelocity = -jumpPower;
+      //Start jump when landing on platform
+      isJumping = true;
+      jumpVelocity = -jumpPower;
     }
   }
-  if (floor < character.y){
-  console.log("dead");
-
+  if (floor < character.y) {
+    console.log("dead");
+  }
 }
-}
-
 
 //console.log(platforms);
 //character.isColaliding(character,platforms[0]);
