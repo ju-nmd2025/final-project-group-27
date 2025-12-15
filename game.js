@@ -24,6 +24,8 @@ const jumpPower = 15;
 const gravity = 0.6;
 let keysPressed = {};
 let score = 0;
+//for the game state management for the menu
+let gameState = "menu"; // 'menu' | 'playing' | 'gameover' | 'win'
 
 //Create platforms with alternating types at random x positions
 const platformTypes = ["Normal", "Moving", "Breaking"];
@@ -37,7 +39,6 @@ for (let i = 0; i < 80; i++) {
 
 function draw() {
   background(170, 170, 255);
-
   character.draw();
   push();
   stroke("magenta");
@@ -46,6 +47,36 @@ function draw() {
   pop();
   for (let i in platforms) {
     platforms[i].draw();
+  }
+
+  //draw the menu screen
+  if (gameState !== "playing") {
+    push();
+    fill(0, 150);
+    rect(0, 0, canvasWidth, canvasHeight);
+    fill(255);
+    textAlign(CENTER, CENTER);
+    textSize(32);
+    if (gameState === "menu") {
+      text("Main Menu", canvasWidth / 2, 80);
+    } else if (gameState === "gameover") {
+      text("Game Over", canvasWidth / 2, 80);
+    } else if (gameState === "win") {
+      text("Good Job, You Won!", canvasWidth / 2, 80);
+    }
+
+    //draw the play button
+    const btnW = 140;
+    const btnH = 44;
+    const bx = canvasWidth / 2 - btnW / 2;
+    const by = canvasHeight / 2 - btnH / 2;
+    fill(100, 200, 100);
+    rect(bx, by, btnW, btnH, 6);
+    fill(0);
+    textSize(20);
+    text("Play", canvasWidth / 2, canvasHeight / 2);
+    pop();
+    return;
   }
   //smooth left and right movement
   if (keysPressed.a) {
@@ -108,8 +139,15 @@ function draw() {
       jumpVelocity = -jumpPower;
     }
   }
+  // death condition: player falls below floor
   if (floor < character.y) {
     console.log("dead");
+    gameState = "gameover";
+  }
+
+  // win condition
+  if (score >= 5000) {
+    gameState = "win";
   }
 }
 
@@ -121,6 +159,44 @@ function keyPressed() {
 
 function keyReleased() {
   keysPressed[key] = false;
+}
+//function currently only for handling the mouse for the menu screen
+function mousePressed() {
+  //only handle clicks on menu/play screens
+  if (gameState === "playing") return;
+  const btnW = 140;
+  const btnH = 44;
+  const bx = canvasWidth / 2 - btnW / 2;
+  const by = canvasHeight / 2 - btnH / 2;
+  if (
+    mouseX >= bx &&
+    mouseX <= bx + btnW &&
+    mouseY >= by &&
+    mouseY <= by + btnH
+  ) {
+    resetGame();
+    gameState = "playing";
+  }
+}
+
+function resetGame() {
+  //reset the player
+  character.x = canvasWidth * 0.5;
+  character.y = canvasHeight * 0.87;
+  floor = 400;
+  hasJumped = false;
+  isJumping = false;
+  jumpVelocity = 0;
+  score = 0;
+
+  //regenerate the platforms
+  platforms = [];
+  for (let i = 0; i < 80; i++) {
+    const type = platformTypes[i % 3];
+    const randomX = Math.floor(Math.random() * (canvasWidth - 50));
+    const y = canvasHeight - i * 60 - 100;
+    platforms.push(new platform(type, randomX, y, 50, 10));
+  }
 }
 const platformtypes = ["Normal", "Moving", "Breaking"];
 //jumping
