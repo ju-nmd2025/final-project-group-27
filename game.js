@@ -126,10 +126,10 @@ function draw() {
     if (!character.isColliding(character, platforms)) {
       //makes player move 25 units on only the first jump
       if (!hasJumped) {
-        character.y -= 25;
+        character.y -= 75;
         hasJumped = true;
         // award score for the first jump
-        score += 25;
+        score += 75;
       }
       isJumping = true;
       jumpVelocity = -jumpPower;
