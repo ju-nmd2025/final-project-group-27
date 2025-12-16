@@ -3,7 +3,6 @@ import { Player } from "player";
 import player from "./player";
 import platform from "./platform";
 
-
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
 }
@@ -23,7 +22,7 @@ let score = 0;
 //for the game state management for the menu
 let gameState = "menu"; // 'menu' | 'playing' | 'gameover' | 'win'
 
-//Create platforms with alternating types at random x positions
+//Creates preview
 const platformTypes = ["Normal", "Moving", "Breaking"];
 let platforms = [];
 for (let i = 0; i < 80; i++) {
@@ -60,7 +59,6 @@ function draw() {
     } else if (gameState === "win") {
       text("Good Job, You Won!", canvasWidth / 2, 80);
     }
-
     //draw the play button
     const btnW = 140;
     const btnH = 44;
@@ -93,7 +91,7 @@ function draw() {
   if (isJumping) {
     jumpVelocity += gravity;
     for (let i in platforms) {
-      platforms[i].y -= jumpVelocity; 
+      platforms[i].y -= jumpVelocity;
     }
     //Increase score while moving up and decrease while moving down
     if (jumpVelocity < 0) {
@@ -138,13 +136,11 @@ function draw() {
     gameState = "win";
   }
 }
-
 //console.log(platforms);
 //character.isColaliding(character,platforms[0]);
 function keyPressed() {
   keysPressed[key] = true;
 }
-
 function keyReleased() {
   keysPressed[key] = false;
 }
@@ -176,7 +172,6 @@ function resetGame() {
   isJumping = false;
   jumpVelocity = 0;
   score = 0;
-
   //regenerate the platforms
   platforms = [];
   for (let i = 0; i < 80; i++) {
@@ -186,5 +181,3 @@ function resetGame() {
     platforms.push(new platform(type, randomX, y, 50, 10));
   }
 }
-const platformtypes = ["Normal", "Moving", "Breaking"];
-//jumping

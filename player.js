@@ -14,6 +14,7 @@ export default class player {
     image(img, this.x, this.y, this.w, this.h);
   }
   isColliding(player, platforms) {
+    // check if character is colliding with platform
     for (const platform of platforms) {
       const playerL = player.x;
       const playerR = player.x + player.w;
@@ -29,8 +30,7 @@ export default class player {
         ((playerT >= platformT && playerT <= platformB) ||
           (playerB <= platformB && playerB >= platformT))
       ) {
-        if (platform.type == "Breaking"){
-          console.log(platform.type);
+        if (platform.type == "Breaking") {
           platforms.splice(platforms.indexOf(platform), 1);
         }
         return true;
@@ -45,7 +45,6 @@ export default class player {
       const playerR = player.x + player.w;
       const platformL = platform.x;
       const platformR = platform.x + platform.w;
-      const playerT = player.y;
       const playerB = player.y + player.h;
       const platformT = platform.y;
 
@@ -61,14 +60,5 @@ export default class player {
       }
     }
     return false;
-  }
-  isFalling(player) {
-    if (this.isColliding && player.y > 400) {
-      console.log("fall true");
-      return true;
-    } else {
-      console.log("fall false");
-      return false;
-    }
   }
 }
