@@ -4,6 +4,7 @@ import { platform } from "./platform.js";
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
 }
+window.setup = setup;
 
 let canvasWidth = 300;
 let canvasHeight = 400;
@@ -178,7 +179,6 @@ function resetGame() {
     platforms.push(new platform(type, randomX, y, 50, 10));
   }
 }
-window.setup = setup;
 
 window.draw = draw;
 
