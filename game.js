@@ -1,5 +1,5 @@
-import player from "./player.js";
-import platform from "./platform.js";
+import { player } from "./player.js";
+import { platform } from "./platform.js";
 
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
