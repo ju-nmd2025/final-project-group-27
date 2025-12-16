@@ -42,4 +42,4 @@ export default class platform {
   }
 }
 
-export { platform }
+export { platform };

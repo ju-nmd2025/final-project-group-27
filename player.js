@@ -1,7 +1,7 @@
 let img;
 
 function preload() {
-  img = loadImage("player.png");
+  img = loadImage("./player.png");
 }
 export default class player {
   constructor(x, y, w, h) {
@@ -62,4 +62,4 @@ export default class player {
     return false;
   }
 }
-export { player }
+export { player };
