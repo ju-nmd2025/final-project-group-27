@@ -1,7 +1,5 @@
-import { Platform } from "platform";
-import { Player } from "player";
-import player from "./player";
-import platform from "./platform";
+import player from "./player.js";
+import platform from "./platform.js";
 
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
@@ -127,7 +125,6 @@ function draw() {
   }
   // death condition: player falls below floor
   if (floor < character.y) {
-    console.log("dead");
     gameState = "gameover";
   }
 
@@ -181,3 +178,14 @@ function resetGame() {
     platforms.push(new platform(type, randomX, y, 50, 10));
   }
 }
+window.setup = setup;
+
+window.draw = draw;
+
+window.addEventListener("click", function (event) {
+    mousePressed();
+});
+
+window.addEventListener("keydown", function (event) {
+    keyPressed();
+});
