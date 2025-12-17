@@ -186,10 +186,13 @@ window.addEventListener("click", function (event) {
   mousePressed();
 });
 
-window.addEventListener("keydown", function (event) {
-  keyPressed();
-});
+function keyPressed(event) {
+  keysPressed[event.key.toLowerCase()] = true;
+}
 
-window.addEventListener("keyup", function (event) {
-  keyReleased();
-});
+function keyReleased(event) {
+  keysPressed[event.key.toLowerCase()] = false;
+}
+
+window.addEventListener("keydown", keyPressed);
+window.addEventListener("keyup", keyReleased);
