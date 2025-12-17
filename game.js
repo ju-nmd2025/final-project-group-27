@@ -4,6 +4,9 @@ import { platform } from "./platform.js";
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
 }
+function preload() {
+  img = loadImage("./player.png");
+}
 window.setup = setup;
 
 let canvasWidth = 300;
