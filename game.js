@@ -5,7 +5,6 @@ function setup() {
   createCanvas(canvasWidth, canvasHeight);
 }
 window.setup = setup;
-
 let canvasWidth = 300;
 let canvasHeight = 400;
 let character = new player(canvasWidth * 0.5, canvasHeight * 0.87, 20, 20);
@@ -24,7 +23,7 @@ let gameState = "menu"; // 'menu' | 'playing' | 'gameover' | 'win'
 //Creates preview
 const platformTypes = ["Normal", "Moving", "Breaking"];
 let platforms = [];
-for (let i = 0; i < 80; i++) {
+for (let i = 0; i < 37; i++) {
   const type = platformTypes[i % 3];
   const randomX = Math.floor(Math.random() * (canvasWidth - 50));
   const y = canvasHeight - i * 80 - 100;
@@ -84,6 +83,7 @@ function draw() {
   fill(0);
   textSize(16);
   text("Score: " + Math.floor(score), 10, 20);
+  text("3000 to win", 10, 38);
   pop();
 
   //Handle jumping
@@ -130,7 +130,7 @@ function draw() {
   }
 
   // win condition
-  if (score >= 6500) {
+  if (score >= 3000) {
     gameState = "win";
   }
 }
@@ -167,7 +167,7 @@ function resetGame() {
   score = 0;
   //regenerate the platforms
   platforms = [];
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 37; i++) {
     const type = platformTypes[i % 3];
     const randomX = Math.floor(Math.random() * (canvasWidth - 50));
     const y = canvasHeight - i * 80 - 100;
