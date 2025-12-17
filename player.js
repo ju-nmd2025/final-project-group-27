@@ -1,8 +1,4 @@
 let img;
-
-function preload() {
-  img = loadImage("./player.png");
-}
 export default class player {
   constructor(x, y, w, h) {
     this.x = x;
@@ -11,7 +7,7 @@ export default class player {
     this.h = h;
   }
   draw() {
-    image(img, this.x, this.y, this.w, this.h);
+    rect(this.x, this.y, this.w, this.h);
   }
   isColliding(player, platforms) {
     // check if character is colliding with platform

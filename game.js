@@ -4,16 +4,11 @@ import { platform } from "./platform.js";
 function setup() {
   createCanvas(canvasWidth, canvasHeight);
 }
-
-function preload() {
-  img = loadImage("./player.png");
-}
-
 window.setup = setup;
 
 let canvasWidth = 300;
 let canvasHeight = 400;
-let character = new player(canvasWidth * 0.5, canvasHeight * 0.87, 50, 50);
+let character = new player(canvasWidth * 0.5, canvasHeight * 0.87, 20, 20);
 let floor = 400;
 //to track the first jump so the player position can move
 let hasJumped = false;
