@@ -5,6 +5,7 @@ function setup() {
   createCanvas(canvasWidth, canvasHeight);
 }
 window.setup = setup;
+
 let canvasWidth = 300;
 let canvasHeight = 400;
 let character = new player(canvasWidth * 0.5, canvasHeight * 0.87, 20, 20);
