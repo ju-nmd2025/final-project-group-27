@@ -136,12 +136,6 @@ function draw() {
 }
 //console.log(platforms);
 //character.isColaliding(character,platforms[0]);
-function keyPressed() {
-  keysPressed[key] = true;
-}
-function keyReleased() {
-  keysPressed[key] = false;
-}
 //function currently only for handling the mouse for the menu screen
 function mousePressed() {
   //only handle clicks on menu/play screens
@@ -165,6 +159,7 @@ function resetGame() {
   //reset the player
   character.x = canvasWidth * 0.5;
   character.y = canvasHeight * 0.87;
+  keysPressed = {};
   floor = 400;
   hasJumped = false;
   isJumping = false;
@@ -189,7 +184,6 @@ window.addEventListener("click", function (event) {
 function keyPressed(event) {
   keysPressed[event.key.toLowerCase()] = true;
 }
-
 function keyReleased(event) {
   keysPressed[event.key.toLowerCase()] = false;
 }
