@@ -1,11 +1,14 @@
 import { player } from "./player.js";
 import { platform } from "./platform.js";
 
-function setup() {
-  createCanvas(canvasWidth, canvasHeight);
-}
 function preload() {
   img = loadImage("./player.png");
+}
+
+window.preload = preload;
+
+function setup() {
+  createCanvas(canvasWidth, canvasHeight);
 }
 window.setup = setup;
 
@@ -186,9 +189,9 @@ function resetGame() {
 window.draw = draw;
 
 window.addEventListener("click", function (event) {
-    mousePressed();
+  mousePressed();
 });
 
 window.addEventListener("keydown", function (event) {
-    keyPressed();
+  keyPressed();
 });
