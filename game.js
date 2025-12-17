@@ -189,3 +189,7 @@ window.addEventListener("click", function (event) {
 window.addEventListener("keydown", function (event) {
   keyPressed();
 });
+
+window.addEventListener("keyup", function (event) {
+  keyReleased();
+});
